@@ -1,6 +1,7 @@
-class funcionario():
+class Funcionario():
     
-    
+ 
+
     def __init__(self,nome,h_trabalhadas,valor_porH,despesa_add):
         self.nome = nome
         self.h_trabalhadas = h_trabalhadas
