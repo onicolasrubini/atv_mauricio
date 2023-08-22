@@ -9,11 +9,13 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import *
 import PySide6.QtWidgets
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(800, 566)
+        
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout_3 = QVBoxLayout(self.centralwidget)
@@ -48,7 +50,6 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.btn_pJuridica)
 
-
         self.verticalLayout_2.addWidget(self.frame_contribuintes)
 
 
@@ -63,26 +64,27 @@ class Ui_MainWindow(object):
         self.btn_pFisica.clicked.connect(self.pessoaFisica)
         self.btn_pJuridica.clicked.connect(self.pessoaJuridica)
         
+        
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.lbl_contribuintes.setText(QCoreApplication.translate("MainWindow", u"CONTRIBUINTES", None))
         self.btn_pFisica.setText(QCoreApplication.translate("MainWindow", u"Pessoa Fisica", None))
         self.btn_pJuridica.setText(QCoreApplication.translate("MainWindow", u"Pessoa Juridica", None))
         
+        
     def pessoaFisica(self):
         self.pessoa_fisica = JanelaPessoaFis()
         self.pessoa_fisica.show()
+        
         
     def pessoaJuridica(self):
         self.pessoa_juridica = JanelaPessoaJuridica()
         self.pessoa_juridica.show()    
         
         
-        
-        
-#janela Pessoa Fisica
+             
+      #janela Pessoa Fisica
 class JanelaPessoaFis(QWidget):
-    
     def __init__(self):
         super().__init__()
         
@@ -115,7 +117,6 @@ class JanelaPessoaFis(QWidget):
 
         self.verticalLayout.addWidget(self.input_nome)
 
-
         self.verticalLayout_3.addWidget(self.frame_nome)
 
         self.frame_rendaanual = QFrame(self.centralwidget)
@@ -134,7 +135,6 @@ class JanelaPessoaFis(QWidget):
         self.input_rendaanual.setObjectName(u"input_rendaanual")
 
         self.verticalLayout_4.addWidget(self.input_rendaanual)
-
 
         self.verticalLayout_3.addWidget(self.frame_rendaanual)
 
@@ -155,7 +155,6 @@ class JanelaPessoaFis(QWidget):
 
         self.verticalLayout_2.addWidget(self.input_gastoSaude)
 
-
         self.verticalLayout_3.addWidget(self.frame_gastoSaude)
 
         self.frame = QFrame(self.centralwidget)
@@ -169,7 +168,6 @@ class JanelaPessoaFis(QWidget):
 
         self.horizontalLayout.addWidget(self.btn_calcular)
 
-
         self.verticalLayout_3.addWidget(self.frame)
 
         self.setLayout(self.verticalLayout_3)
@@ -182,13 +180,8 @@ class JanelaPessoaFis(QWidget):
         
         
         
-        
-        
-        
-        
-        
+      #janela pessoa juridica  
 class JanelaPessoaJuridica(QWidget):
-    
     def __init__(self):
         super().__init__()
         
@@ -210,7 +203,6 @@ class JanelaPessoaJuridica(QWidget):
 
         self.verticalLayout.addWidget(self.lbl_pessoaJuridica, 0, Qt.AlignHCenter)
 
-
         self.verticalLayout_5.addWidget(self.frame_pessoaJuridica)
 
         self.frame_nome_juridico = QFrame(self.centralwidget)
@@ -229,7 +221,6 @@ class JanelaPessoaJuridica(QWidget):
         self.input_nome_juridico.setObjectName(u"input_nome_juridico")
 
         self.verticalLayout_2.addWidget(self.input_nome_juridico)
-
 
         self.verticalLayout_5.addWidget(self.frame_nome_juridico)
 
@@ -250,7 +241,6 @@ class JanelaPessoaJuridica(QWidget):
 
         self.verticalLayout_4.addWidget(self.input_rendaanual_juridico)
 
-
         self.verticalLayout_5.addWidget(self.frame_rendaanual_juridico)
 
         self.frame_numFunc = QFrame(self.centralwidget)
@@ -270,7 +260,6 @@ class JanelaPessoaJuridica(QWidget):
 
         self.verticalLayout_3.addWidget(self.input_numFunc)
 
-
         self.verticalLayout_5.addWidget(self.frame_numFunc)
 
         self.frame_calcularImp_juridico = QFrame(self.centralwidget)
@@ -284,18 +273,15 @@ class JanelaPessoaJuridica(QWidget):
 
         self.verticalLayout_6.addWidget(self.btn_imposto_juridico)
 
-
         self.verticalLayout_5.addWidget(self.frame_calcularImp_juridico)
 
         self.setLayout(self.verticalLayout_5)
-
 
         self.lbl_pessoaJuridica.setText(QCoreApplication.translate("MainWindow", u"Pessoa Juridica", None))
         self.lbl_nome_juridico.setText(QCoreApplication.translate("MainWindow", u"Nome", None))
         self.lbl_rendaanual_juridico.setText(QCoreApplication.translate("MainWindow", u"Renda Anual", None))
         self.lbl_numFunc.setText(QCoreApplication.translate("MainWindow", u"N\u00famero de Funcionarios", None))
         self.btn_imposto_juridico.setText(QCoreApplication.translate("MainWindow", u"Calcular Imposto", None))
-
 
 
 if __name__ == "__main__":
