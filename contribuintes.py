@@ -11,6 +11,7 @@ class Contribuintes():
        
        
     def conta_pessoaFis(self,renda):
+        
         if self.rendaAnual_Pfisica <= 20000:
             renda = 15/100 * self.rendaAnual_Pfisica
             print(renda)
@@ -22,6 +23,7 @@ class Contribuintes():
             
     
     def conta_pessoaJuri(self,imposto):
+        
         if self.numDeFunc <= 10:
             imposto = 16/100 * self.rendaAnual_Pjuri
             print(imposto)
