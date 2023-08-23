@@ -10,10 +10,11 @@ from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
     QLineEdit, QMainWindow, QPushButton, QSizePolicy,
     QVBoxLayout, QWidget)
 import mainfunc
+from fun_teladados import *
 from func_tercerizado import *
 # while True:
 listaf=[]
-class Ui_MainWindow(object):   
+class MainWindow(QMainWindow):   
     
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
@@ -181,12 +182,7 @@ class Ui_MainWindow(object):
         self.btn_registro.setObjectName(u"btn_registro")
         self.btn_registro.setStyleSheet(u"")
         
-        self.btn_dados= QPushButton(self.f_principal)
-        self.btn_dados.setObjectName(u"Dados")
-        self.btn_dados.setStyleSheet(u"")
-        self.btn_dados.setGeometry(700,20,90,30)
-        
-    
+
         
 
         self.verticalLayout_8.addWidget(self.btn_registro)
@@ -201,9 +197,11 @@ class Ui_MainWindow(object):
         QMetaObject.connectSlotsByName(MainWindow)
 
         funcionario=Funcionario(self.input_nomefuncp,self.input_nomet,self.input_hrstfuncp,self.input_hrstfunt,self.input_valorshrsfuncp,self.input_valorshrsfunt,self.input_desfunt)
-      
-        self.btn_dados.clicked.connect(self.teladados)
-                    
+        self.btn_registro.clicked.connect(self.limpar_dados)
+        self.btn_registro.clicked.connect(self.abrirdados)
+        self.result_label=QLabel(self)
+        self.result_label.setGeometry(10,110,280,30)      
+         
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.lbl_rgfunp.setText(QCoreApplication.translate("MainWindow", u"Registro do funcion\u00e1rio pr\u00f3prio", None))
@@ -216,26 +214,44 @@ class Ui_MainWindow(object):
         self.lbl_valorhrsfuncp.setText(QCoreApplication.translate("MainWindow", u"Valor por horas", None))
         self.lbl_despesat.setText(QCoreApplication.translate("MainWindow", u"Despesa", None))
         self.btn_registro.setText(QCoreApplication.translate("MainWindow", u"Registra-se", None))
-        self.btn_dados.setText(QCoreApplication.translate("MainWindow", u"Dados", None))
-        self.tela_dados.(QCoreApplication.translate("MainWindow", listaf, None))
+     
         
-    def teladados(self):
-        self.tela_dados=Telasecundaria()
-        self.tela_dados.show()
-        
-class Telasecundaria(QWidget):
     
-    def __init__(self):
-        super().__init__()
-        print(listaf)
         
+    def limpar_dados(self):
+        self.input_nomet.setText("")
+        
+        self.input_hrstfunt.setText("")
+        
+        self.input_valorshrsfunt.setText("")
+        
+        
+        self.input_nomefuncp.setText("")
+       
+        
+        self.input_hrstfuncp.setText("")
+       
+        
+        self.input_valorshrsfuncp.setText("")
+        
+        
+        self.input_desfunt.setText("")
+        
+        
+    def abrirdados(self):
+        self.abrir_dados=Telasecundaria()
+        self.abrir_dados.show()
+        self.result_label.setText(self.input_nomefuncp)
+        print(self.input_nomefuncp)
+           
+  
     
 
 if __name__=='__main__':
     import sys
     app = QApplication(sys.argv)
     w=QMainWindow()
-    janela=Ui_MainWindow()
+    janela=MainWindow()
     janela.setupUi(w)
     w.show()
     app.exec()
