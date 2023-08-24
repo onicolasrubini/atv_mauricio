@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from collections import deque
 from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QCheckBox, QPushButton, QVBoxLayout, QLabel, QDialog, QWidget, QComboBox
 
-class fila(QMainWindow):
+class Fila(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle('Gerenciamento de Fila - Cadastro')
