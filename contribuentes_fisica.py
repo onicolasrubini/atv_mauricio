@@ -111,20 +111,20 @@ class JanelaPessoaFis(QWidget):
         self.btn_calcular.clicked.connect(self.conta_pessoaFis)
         
         self.return1 = QLabel(self)
-        self.return1.setGeometry(100,100,180,30)
+        self.return1.setGeometry(100,100,300,30)
         
         
         
     def conta_pessoaFis(self,renda):
-        rendaAnual = self.input_rendaanual
+        
         
         if self.rendaAnual_Pfisica <= 20000:
-            renda =  (15 * rendaAnual) / 100
+            renda = (0.15*self.rendaAnual_Pfisica)
             self.return1.setText(f"{renda}")
-            return renda
+            print(renda)
             
             
-        elif self.rendaAnual_Pfisica > 20000:
+        '''elif self.rendaAnual_Pfisica > 20000:
             renda = (25/100 * self.rendaAnual_Pfisica) - (50/100 * self.gastoSaude)
             self.return1.setText(f"{renda}")
-            return renda
+        '''
