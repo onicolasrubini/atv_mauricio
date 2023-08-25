@@ -4,12 +4,13 @@ from PySide6.QtCore import QSize, Qt
 from datetime import datetime, timedelta 
 from collections import deque
 from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QCheckBox, QPushButton, QVBoxLayout, QLabel, QDialog, QWidget, QComboBox
+from paciente import Paciente
 
 class Fila(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle('Gerenciamento de Fila - Cadastro')
-        self.setFixedSize(500,500)
+        self.setFixedSize(500,650)
 
         self.central_widget = QWidget() # Para centralizar
         self.setCentralWidget(self.central_widget)
@@ -41,7 +42,7 @@ class Fila(QMainWindow):
         self.lbl_sexo = QLabel('Sexo',self)
         self.layout.addWidget(self.lbl_sexo)
         
-        # CheckBox Masculino 
+        # ComboBox sexo 
         self.cb = QComboBox(self)
         self.cb.addItems(['Masculino','Feminino','Outros'])
         self.layout.addWidget(self.cb)
@@ -50,7 +51,7 @@ class Fila(QMainWindow):
         self.cb.currentTextChanged.connect(self.mudanca_texto)
         
         self.cb.setEditable(True) # Permite que o conteudo editavel
-        self.cb.setMaxCount(10) # Limite maximo do conteudo
+        self.cb.setMaxCount(20) # Limite maximo do conteudo
         
 #===================================================================================
         
@@ -70,14 +71,13 @@ class Fila(QMainWindow):
         self.layout.addWidget(self.ck_sim)
         self.layout.addWidget(self.ck_nao)
         
-        # Button de Cadastro
-        self.btn_cadastrar = QPushButton('Cadastrar',self)
-        self.layout.addWidget(self.btn_cadastrar)
-        
         self.ck_sim.stateChanged.connect(self.ck_sim_nao)
         self.ck_nao.stateChanged.connect(self.ck_sim_nao)  
         
-        
+         # Button de Cadastro
+        self.btn_cadastrar = QPushButton('Cadastrar',self)
+        self.layout.addWidget(self.btn_cadastrar)
+        self.btn_cadastrar.clicked.connect(self.caminho_janela_paciente)
         
         self.central_widget.setLayout(self.layout)
          
@@ -95,6 +95,15 @@ class Fila(QMainWindow):
             else:
                 self.ck_sim.setChecked(False)
                 
+    def caminho_janela_paciente(self):
+        nome_completo = str(self.line_edite_nome_completo.text()) if self.line_edite_nome_completo.text() else 'sem informação'
+        num_telefone = str(self.line_edit_num_telefone.text()) if self.line_edit_num_telefone.text() else 'sem informação'
+        email = str(self.line_edit_email.text()) if self.line_edit_email.text() else 'sem informação'
+        #sexo = str()      
+        #idade = str(self.line_edit_dt_nasc.text()) if self.line_edit_dt_nasc else 'sem informação'        
+        self.caminho_janela_paciente = Paciente(nome_completo,num_telefone,email)
+        
+        
         
         
 if __name__ == "__main__":    
