@@ -11,6 +11,7 @@ from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QMainWindow,
     QPushButton, QSizePolicy, QVBoxLayout, QWidget)
 import telaini
 from cadastroproduto import *
+from produtos import *
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -60,7 +61,7 @@ class Ui_MainWindow(object):
         QMetaObject.connectSlotsByName(MainWindow)
 
         self.btn_cadastrarp.clicked.connect(self.cadastro_produto)
-        
+        self.btn_estoque.clicked.connect(self.estq)
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.lbl_telainicial.setText(QCoreApplication.translate("MainWindow", u"Tela Inicial", None))
@@ -68,7 +69,8 @@ class Ui_MainWindow(object):
         self.btn_estoque.setText(QCoreApplication.translate("MainWindow", u"Ver Estoque", None))
         self.btn_cadastrarp.setText(QCoreApplication.translate("MainWindow", u"Cadastrar Produto", None))
     def estq(self):
-        self.estoque=produtos()
+        self.estoque=Produtos()
+        self.estoque.show()
     def cadastro_produto(self):
         self.cadastro = Ui_Cadastro()
         self.cadastro.show()

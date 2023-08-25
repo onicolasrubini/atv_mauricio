@@ -8,15 +8,13 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QLabel, QMainWindow,
-    QSizePolicy, QWidget)
+    QSizePolicy, QWidget,QFrame)
 import produtos
 
-class Ui_MainWindow(QWidget):
-    def setupUi(self, MainWindow):
-        if not MainWindow.objectName():
-            MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(800, 600)
-        self.centralwidget = QWidget(MainWindow)
+class Produtos(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.centralwidget = QWidget()
         self.centralwidget.setObjectName(u"centralwidget")
         self.lbl_estoque = QLabel(self.centralwidget)
         self.lbl_estoque.setObjectName(u"lbl_estoque")
@@ -28,20 +26,13 @@ class Ui_MainWindow(QWidget):
         self.cb_produtos.addItem("")
         self.cb_produtos.setObjectName(u"cb_produtos")
         self.cb_produtos.setGeometry(QRect(30, 90, 161, 20))
-        MainWindow.setCentralWidget(self.centralwidget)
+        self.f_principal=QFrame(self.centralwidget)
+        self.f_principal.setObjectName(u"f_principal")
+       
+       
 
-        self.setLa
         self.lbl_estoque.setText(QCoreApplication.translate("MainWindow", u"Estoque", None))
         self.cb_produtos.setItemText(0, QCoreApplication.translate("MainWindow", u"Produtos", None))
 
 
 
-
-if __name__=='__main__':
-    import sys
-    app = QApplication(sys.argv)
-    w=QMainWindow()
-    janela=Ui_MainWindow()
-    janela.setupUi(w)
-    w.show()
-    app.exec()
