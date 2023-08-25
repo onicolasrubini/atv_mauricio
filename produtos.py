@@ -11,7 +11,7 @@ from PySide6.QtWidgets import (QApplication, QComboBox, QLabel, QMainWindow,
     QSizePolicy, QWidget)
 import produtos
 
-class Ui_MainWindow(object):
+class Ui_MainWindow(QWidget):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
@@ -30,17 +30,11 @@ class Ui_MainWindow(object):
         self.cb_produtos.setGeometry(QRect(30, 90, 161, 20))
         MainWindow.setCentralWidget(self.centralwidget)
 
-        self.retranslateUi(MainWindow)
-
-        QMetaObject.connectSlotsByName(MainWindow)
-    # setupUi
-
-    def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        self.setLa
         self.lbl_estoque.setText(QCoreApplication.translate("MainWindow", u"Estoque", None))
         self.cb_produtos.setItemText(0, QCoreApplication.translate("MainWindow", u"Produtos", None))
 
-    # retranslateUi
+
 
 
 if __name__=='__main__':

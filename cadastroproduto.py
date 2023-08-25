@@ -7,19 +7,16 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QLineEdit,
-    QMainWindow, QSizePolicy, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import *
 import cadastroproduto
 
-class Ui_Cadastro(object):
-    def setupUi(self, Cadastro):
-        if not Cadastro.objectName():
-            Cadastro.setObjectName(u"Cadastro")
-        Cadastro.resize(800, 600)
+class Ui_Cadastro(QWidget):
+    def __init__(self):
+        super().__init__()
+        
         font = QFont()
         font.setPointSize(10)
-        Cadastro.setFont(font)
-        self.centralwidget = QWidget(Cadastro)
+        self.centralwidget = QWidget()
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout_2 = QVBoxLayout(self.centralwidget)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
@@ -69,18 +66,10 @@ class Ui_Cadastro(object):
 
         self.verticalLayout.addWidget(self.input_qntdestq)
 
-
         self.verticalLayout_2.addWidget(self.f_principal)
 
-        Cadastro.setCentralWidget(self.centralwidget)
-
-        self.retranslateUi(Cadastro)
-
-        QMetaObject.connectSlotsByName(Cadastro)
-    # setupUi
-
-    def retranslateUi(self, Cadastro):
-        Cadastro.setWindowTitle(QCoreApplication.translate("Cadastro", u"MainWindow", None))
+        self.setLayout(self.verticalLayout_2)
+        
         self.lbl_cadastrop.setText(QCoreApplication.translate("Cadastro", u"Cadastro do Produto", None))
         self.lbl_nome.setText(QCoreApplication.translate("Cadastro", u"Nome", None))
         self.input_nome.setPlaceholderText(QCoreApplication.translate("Cadastro", u"Digite o nome do produto", None))
@@ -88,14 +77,6 @@ class Ui_Cadastro(object):
         self.input_precouni.setPlaceholderText(QCoreApplication.translate("Cadastro", u"Digite o pre\u00e7o unit\u00e1rio", None))
         self.lbl_qntdestq.setText(QCoreApplication.translate("Cadastro", u"Quantidade de estoque", None))
         self.input_qntdestq.setPlaceholderText(QCoreApplication.translate("Cadastro", u"Digite a quantidade de estoque", None))
-    # retranslateUi
 
 
-if __name__=='__main__':
-    import sys
-    app = QApplication(sys.argv)
-    w=QMainWindow()
-    janela=Ui_Cadastro()
-    janela.setupUi(w)
-    w.show()
-    app.exec()
+
