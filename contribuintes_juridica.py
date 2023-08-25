@@ -110,3 +110,5 @@ class JanelaPessoaJuridica(QWidget):
         self.lbl_rendaanual_juridico.setText(QCoreApplication.translate("MainWindow", u"Renda Anual", None))
         self.lbl_numFunc.setText(QCoreApplication.translate("MainWindow", u"N\u00famero de Funcionarios", None))
         self.btn_imposto_juridico.setText(QCoreApplication.translate("MainWindow", u"Calcular Imposto", None))
+        
+        

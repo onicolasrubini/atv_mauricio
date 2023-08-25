@@ -11,9 +11,13 @@ import PySide6.QtWidgets
 
 
 class JanelaPessoaFis(QWidget):
-    def __init__(self):
+    def __init__(self,nomePessoaFis,rendaAnual_Pfisica,gastoSaude):
         super().__init__()
         
+        self.nomePessoaFis = nomePessoaFis
+        self.rendaAnual_Pfisica = rendaAnual_Pfisica
+        self.gastoSaude = gastoSaude
+       
         self.centralwidget = QWidget()
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout_3 = QVBoxLayout(self.centralwidget)
@@ -103,3 +107,24 @@ class JanelaPessoaFis(QWidget):
         self.lbl_rendaanual.setText(QCoreApplication.translate("MainWindow", u"Renda Anual", None))
         self.lbl_gastosSaude.setText(QCoreApplication.translate("MainWindow", u"Gasto com Sa\u00fade", None))
         self.btn_calcular.setText(QCoreApplication.translate("MainWindow", u"Calcular impostos", None))
+        
+        self.btn_calcular.clicked.connect(self.conta_pessoaFis)
+        
+        self.return1 = QLabel(self)
+        self.return1.setGeometry(100,100,180,30)
+        
+        
+        
+    def conta_pessoaFis(self,renda):
+        rendaAnual = self.input_rendaanual
+        
+        if self.rendaAnual_Pfisica <= 20000:
+            renda =  (15 * rendaAnual) / 100
+            self.return1.setText(f"{renda}")
+            return renda
+            
+            
+        elif self.rendaAnual_Pfisica > 20000:
+            renda = (25/100 * self.rendaAnual_Pfisica) - (50/100 * self.gastoSaude)
+            self.return1.setText(f"{renda}")
+            return renda
