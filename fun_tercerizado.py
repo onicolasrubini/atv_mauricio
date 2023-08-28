@@ -7,15 +7,17 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QLineEdit,
     QMainWindow, QPushButton, QSizePolicy, QVBoxLayout,
-    QWidget,QListWidget)
+    QWidget,QListWidget,QMessageBox)
 import fun_tercerizado
 
-listav=[]
-listah=[]
-listap=[]
+listat=[]
 class Funct(QWidget):
-    def __init__(self):
+    def __init__(self,nomeTercerizado,h_trabalhadasTercerizado,valor_porH_ter,despesa_add):
         super().__init__()
+        self.nomeTercerizado = nomeTercerizado
+        self.h_trabalhadasTercerizado = h_trabalhadasTercerizado
+        self.valor_porH_ter = valor_porH_ter
+        self.despesa_add = despesa_add
         self.centralwidget = QWidget()
         self.centralwidget.setObjectName(u"centralwidget")
         self.f_principal = QFrame(self.centralwidget)
@@ -32,7 +34,7 @@ class Funct(QWidget):
         self.verticalLayout = QVBoxLayout(self.f_fun_terce)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.lbl_funtercerizado = QLabel(self.f_fun_terce)
-        self.lbl_funtercerizado.setObjectName(u"lbl_funproprio")
+        self.lbl_funtercerizado.setObjectName(u"lbl_funtercerizado")
         font = QFont()
         font.setPointSize(20)
         self.lbl_funtercerizado.setFont(font)
@@ -70,8 +72,9 @@ class Funct(QWidget):
 
         self.verticalLayout.addWidget(self.input_valorhrst)
         
-        self.lbl_despesa=QLabel(self.f_fun_terce)
-        self.lbl_despesa.setObjectName(u"lbl_despesa")
+        self.lbl_despesa=QLabel("despesas",self)
+        self.lbl_despesa.setGeometry(10,200,80,30)
+        
         
         self.verticalLayout.addWidget(self.lbl_despesa)
         
@@ -97,34 +100,37 @@ class Funct(QWidget):
 
 
         
-        self.btn_mdados = QPushButton(self.f_principal)
-        self.btn_mdados.setObjectName(u"btn_apgrrg")
-        self.btn_mdados.setGeometry(20,300,150,30)
-        self.btn_mdados.setText(QCoreApplication.translate("MainWindow", u"Mostrar dados", None))
+        # self.btn_mdados = QPushButton("Mostrar dados",self)
+        # self.btn_mdados.setGeometry(20,500,100,30)
+
 
         self.btn_rgstro.clicked.connect(self.limpar_dados)
-        self.btn_mdados.clicked.connect(self.mostrardados)
+        # self.btn_mdados.clicked.connect(self.mostrardados)
+        
         self.result_label=QLabel(self.f_principal)
         self.result_label.setGeometry(100,10,80,30)
         
        
         self.setLayout(self.verticalLayout_2)
+
+        self.listat=[]
         
    
-        self.lbl_funtercerizado.setText(QCoreApplication.translate("MainWindow", u"Funcion\u00e1rio Pr\u00f3prio", None))
+        self.lbl_funtercerizado.setText(QCoreApplication.translate("MainWindow", u"Funcion\u00e1rio Tercerizado", None))
         self.lbl_nomet.setText(QCoreApplication.translate("MainWindow", u"Nome", None))
         self.input_nomet.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Digite seu nome", None))
         self.lbl_hrstt.setText(QCoreApplication.translate("MainWindow", u"Horas trabalhadas", None))
         self.input_hrstt.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Digite as horas trabalhadas", None))
         self.lbl_valorhrst.setText(QCoreApplication.translate("MainWindow", u"Valor horas", None))
         self.input_valorhrst.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Digite valor por horas", None))
+        self.input_despesa.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Digite sua despesa", None))
         self.btn_rgstro.setText(QCoreApplication.translate("MainWindow", u"Registra-se", None))
         
     
             
     def limpar_dados(self):
         nome = self.input_nomet.text()
-        listap.append(nome)
+        listat.append(nome)
         
         self.input_nomet.setText("")
         
@@ -132,7 +138,52 @@ class Funct(QWidget):
         
         self.input_valorhrst.setText("")
         
-    def mostrardados(self):
-         for i in listap:
-            self.result_label.setText(i)
+        self.input_despesa.setText("")
+         
+        
+    
+        nome = self.input_nomet.text()
+        horas_total = self.input_hrstt.text()
+        valor_hora = self.input_valorhrst.text()
+        despesa=self.input_despesa.text()
+        funcionario=Funct(nome,horas_total,valor_hora,despesa)
+        self.listat.append(funcionario)
+        
+
             
+        QMessageBox.information(self, "Sucesso", "Funcionário cadastrado com sucesso!")
+
+    def mostrardados(self, event):
+        if self.listat:
+            mensagem = "Lista de funcionários:\n"
+            for funcionario in self.listat:
+                pagamento_original = float(funcionario.horas_total) * float(funcionario.valor_hora) 
+                despesa_inicial = 0.0
+
+                if funcionario.terceirizado:
+                    despesa= self.input_despesa.text()
+                    if despesa:
+                        despesa_inicial = float(despesa) * 1.1
+                        pagamento_final = pagamento_original + despesa_inicial
+                        mensagem += (
+                            f"Nome: {funcionario.nome}, "
+                            f"Pagamento Original: {pagamento_original}, "
+                            f"Despesa Inicial: {despesa_inicial}, "
+                            f"Pagamento Final: {pagamento_final}\n"
+                        )
+                    else:
+                        pagamento_final = pagamento_original
+                        mensagem += (
+                            f"Nome: {funcionario.nome}, "
+                            f"Pagamento Original: {pagamento_original}, "
+                            f"Pagamento Final: {pagamento_final}\n"
+                        )
+                else:
+                    pagamento_final = pagamento_original
+                    mensagem += (
+                        f"Nome: {funcionario.nome}, "
+                        f"Pagamento Original: {pagamento_original}, "
+                        f"Pagamento Final: {pagamento_final}\n"
+                    )
+                    
+        QMessageBox.information(self, "Funcionários", mensagem) 

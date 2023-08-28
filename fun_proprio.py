@@ -87,10 +87,9 @@ class Funcp(QWidget):
 
 
         
-        self.btn_mdados = QPushButton(self.f_principal)
-        self.btn_mdados.setObjectName(u"btn_apgrrg")
-        self.btn_mdados.setGeometry(20,300,150,30)
-        self.btn_mdados.setText(QCoreApplication.translate("MainWindow", u"Mostrar dados", None))
+        self.btn_mdados = QPushButton("Mostrar dados",self)
+        self.btn_mdados.setGeometry(20,500,100,30)
+
 
         self.btn_rgstro.clicked.connect(self.limpar_dados)
         self.btn_mdados.clicked.connect(self.mostrardados)
