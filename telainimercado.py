@@ -9,7 +9,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QMainWindow,
     QPushButton, QSizePolicy, QVBoxLayout, QWidget)
-import telaini
+import telainimercado
 from cadastroproduto import *
 from produtos import *
 

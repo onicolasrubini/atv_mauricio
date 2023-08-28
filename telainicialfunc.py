@@ -10,6 +10,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QMainWindow,
     QPushButton, QSizePolicy, QVBoxLayout, QWidget)
 import telainicialfunc
+from fun_proprio import *
+from fun_tercerizado import *
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -52,12 +54,27 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         QMetaObject.connectSlotsByName(MainWindow)
-    # setupUi
+        self.btn_cadastrofp.clicked.connect(self.funcproprio)
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.lb_telainicial.setText(QCoreApplication.translate("MainWindow", u"Tela Inicial", None))
         self.btn_cadastrofp.setText(QCoreApplication.translate("MainWindow", u"Cadastro funcion\u00e1rio pr\u00f3prio", None))
         self.btn_cadastroft.setText(QCoreApplication.translate("MainWindow", u"Cadastro funcion\u00e1rio tercerizado", None))
-    # retranslateUi
 
+    def funcproprio(self):
+        self.cadastrop = Funcp()
+        self.cadastrop.show()
+        
+    def functerce(self):
+        self.cadastrot=Funct()
+        self.cadastrot.show()
+        
+if __name__=='__main__':
+    import sys
+    app = QApplication(sys.argv)
+    w=QMainWindow()
+    janela=Ui_MainWindow()
+    janela.setupUi(w)
+    w.show()
+    app.exec()

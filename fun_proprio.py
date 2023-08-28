@@ -15,12 +15,10 @@ import fun_proprio
 listav=[]
 listah=[]
 listap=[]
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        if not MainWindow.objectName():
-            MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(801, 594)
-        self.centralwidget = QWidget(MainWindow)
+class Funcp(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.centralwidget = QWidget()
         self.centralwidget.setObjectName(u"centralwidget")
         self.f_principal = QFrame(self.centralwidget)
         self.f_principal.setObjectName(u"f_principal")
@@ -89,11 +87,7 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_2.addWidget(self.f_dadosp)
 
-        MainWindow.setCentralWidget(self.centralwidget)
 
-        self.retranslateUi(MainWindow)
-
-        QMetaObject.connectSlotsByName(MainWindow)
         
         self.btn_mdados = QPushButton(self.f_principal)
         self.btn_mdados.setObjectName(u"btn_apgrrg")
@@ -106,10 +100,9 @@ class Ui_MainWindow(object):
         self.result_label.setGeometry(100,10,80,30)
         
        
+        self.setLayout(self.verticalLayout_2)
         
-        
-    def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+   
         self.lbl_funproprio.setText(QCoreApplication.translate("MainWindow", u"Funcion\u00e1rio Pr\u00f3prio", None))
         self.lbl_nomep.setText(QCoreApplication.translate("MainWindow", u"Nome", None))
         self.input_nomep.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Digite seu nome", None))
@@ -144,14 +137,4 @@ class Ui_MainWindow(object):
         
         
           
-
-
-if __name__=='__main__':
-    import sys
-    app = QApplication(sys.argv)
-    w=QMainWindow()
-    janela=Ui_MainWindow()
-    janela.setupUi(w)
-    w.show()
-    app.exec()
 
