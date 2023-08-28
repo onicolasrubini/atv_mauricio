@@ -6,7 +6,7 @@ from contribuentes_fisica import *
 from contribuintes_juridica import *
 
 
-class Ui_MainWindow(object):
+class Contribuintes(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
@@ -57,6 +57,7 @@ class Ui_MainWindow(object):
 
         QMetaObject.connectSlotsByName(MainWindow)
 
+        # conexão dos botões para mudar de pagina
         self.btn_pFisica.clicked.connect(self.pessoaFisica)
         self.btn_pJuridica.clicked.connect(self.pessoaJuridica)
         
@@ -67,7 +68,7 @@ class Ui_MainWindow(object):
         self.btn_pFisica.setText(QCoreApplication.translate("MainWindow", u"Pessoa Fisica", None))
         self.btn_pJuridica.setText(QCoreApplication.translate("MainWindow", u"Pessoa Juridica", None))
         
-        
+    # ligação para pag pessoa fisica
     def pessoaFisica(self):
         nomePessoaFis = str() 
         rendaAnual_Pfisica = float()
@@ -76,17 +77,13 @@ class Ui_MainWindow(object):
         self.pessoa_fisica = JanelaPessoaFis(nomePessoaFis,rendaAnual_Pfisica,gastoSaude)
         self.pessoa_fisica.show()
         
-        
+    # ligação para pag pessoa juridica    
     def pessoaJuridica(self):
-        self.pessoa_juridica = JanelaPessoaJuridica()
+        nomePessoaJuri = str() 
+        rendaAnual_Pjuri = float()
+        numDeFunc = float()
+        
+        self.pessoa_juridica = JanelaPessoaJuridica(nomePessoaJuri,rendaAnual_Pjuri,numDeFunc)
         self.pessoa_juridica.show()
         
 
-if __name__ == "__main__":
-    import sys
-    app = QApplication(sys.argv)
-    janela = QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(janela)
-    janela.show()
-    app.exec()

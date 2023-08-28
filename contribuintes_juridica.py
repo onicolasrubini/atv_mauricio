@@ -10,9 +10,15 @@ from PySide6.QtWidgets import *
 import PySide6.QtWidgets
  
 class JanelaPessoaJuridica(QWidget):
-    def __init__(self):
+    def __init__(self,nomePessoaJuri,rendaAnual_Pjuri,numDeFunc):
         super().__init__()
         
+        # puxando as funções
+        self.nomePessoaJuri = nomePessoaJuri
+        self.rendaAnual_Pjuri = rendaAnual_Pjuri
+        self.numDeFunc = numDeFunc
+        
+        # frames, labels, inputs feito pelo qtdesigner
         self.centralwidget = QWidget()
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout_5 = QVBoxLayout(self.centralwidget)
@@ -111,4 +117,27 @@ class JanelaPessoaJuridica(QWidget):
         self.lbl_numFunc.setText(QCoreApplication.translate("MainWindow", u"N\u00famero de Funcionarios", None))
         self.btn_imposto_juridico.setText(QCoreApplication.translate("MainWindow", u"Calcular Imposto", None))
         
+        # ligação do botão calcular
+        self.btn_imposto_juridico.clicked.connect(self.conta_pessoaJuri)
         
+        # return para mostrar o valor
+        self.return_pJuridica = QLabel(self)
+        self.return_pJuridica.setGeometry(30,250,200,30)
+        
+        
+        # conta para calculo do imposto
+    def conta_pessoaJuri(self,imposto):
+        
+        self.rendaAnual_Pjuri = float(self.input_rendaanual_juridico.text())
+        self.numDeFunc = float(self.input_numFunc.text())
+        
+        if self.numDeFunc <= 10:
+            imposto = 0.16 * self.rendaAnual_Pjuri
+            self.return_pJuridica.setText("Seu imposto ficou %.2f"% imposto)
+            return imposto
+        
+        
+        elif self.numDeFunc > 10:
+            imposto = 0.14 * self.rendaAnual_Pjuri
+            self.return_pJuridica.setText("Seu imposto ficou %.2f"% imposto)
+            return imposto

@@ -14,10 +14,12 @@ class JanelaPessoaFis(QWidget):
     def __init__(self,nomePessoaFis,rendaAnual_Pfisica,gastoSaude):
         super().__init__()
         
+        # puxando as funções 
         self.nomePessoaFis = nomePessoaFis
         self.rendaAnual_Pfisica = rendaAnual_Pfisica
         self.gastoSaude = gastoSaude
-       
+        
+        # frames, labels, inputs feito pelo qtdesigner
         self.centralwidget = QWidget()
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout_3 = QVBoxLayout(self.centralwidget)
@@ -108,23 +110,32 @@ class JanelaPessoaFis(QWidget):
         self.lbl_gastosSaude.setText(QCoreApplication.translate("MainWindow", u"Gasto com Sa\u00fade", None))
         self.btn_calcular.setText(QCoreApplication.translate("MainWindow", u"Calcular impostos", None))
         
+        # ligação do botão calcular
         self.btn_calcular.clicked.connect(self.conta_pessoaFis)
         
-        self.return1 = QLabel(self)
-        self.return1.setGeometry(100,100,300,30)
+        # return para mostrar o valor
+        self.return_pfisica = QLabel(self)
+        self.return_pfisica.setGeometry(35,230,200,30)
         
         
-        
+    # conta para calculo do imposto
     def conta_pessoaFis(self,renda):
         
+        self.rendaAnual_Pfisica = float(self.input_rendaanual.text())
+        self.gastoSaude = float(self.input_gastoSaude.text())
         
         if self.rendaAnual_Pfisica <= 20000:
             renda = (0.15*self.rendaAnual_Pfisica)
-            self.return1.setText(f"{renda}")
-            print(renda)
+            self.return_pfisica.setText("Seu imposto ficou %.2f"% renda)
+            return renda
             
             
-        '''elif self.rendaAnual_Pfisica > 20000:
-            renda = (25/100 * self.rendaAnual_Pfisica) - (50/100 * self.gastoSaude)
-            self.return1.setText(f"{renda}")
-        '''
+        elif self.rendaAnual_Pfisica > 20000:
+            renda = (0.25*self.rendaAnual_Pfisica)
+            
+            
+            if self.gastoSaude >= 2000:
+                renda = (0.25 * self.rendaAnual_Pfisica) - (0.50 * self.gastoSaude)
+            
+            self.return_pfisica.setText("Seu imposto ficou %.2f"% renda)
+            return renda
