@@ -2,7 +2,7 @@ import sys
 from PySide6.QtGui import QPixmap
 from PySide6.QtCore import QSize, Qt
 from datetime import datetime, timedelta
-from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QCheckBox, QPushButton, QVBoxLayout, QLabel, QDialog, QWidget, QFrame
+from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QCheckBox, QPushButton, QVBoxLayout, QLabel, QDialog, QWidget, QFrame, QTableView, QTableWidget
 
 from cadastro import Fila
 
@@ -39,13 +39,15 @@ class tela_inicial(QMainWindow):
         
         # Titulo 
         self.lbl_Titulo_tela_inicial = QLabel('Fila de pacientes',self)
-        self.lbl_Titulo_tela_inicial.setGeometry(215,200,100,30)
+        self.lbl_Titulo_tela_inicial.setGeometry(215,200,100,30)   
         
         # Botão de cadastro
         self.btn_cadastro = QPushButton('Cadastrar-se',self)
         self.btn_cadastro.setGeometry(126,600,250,30)
         self.btn_cadastro.clicked.connect(self.cadastro)
-        
+ 
+    def tabela_saida(self):
+        print('a')
         
     # def para ir para a proxima tela
     def cadastro(self):       

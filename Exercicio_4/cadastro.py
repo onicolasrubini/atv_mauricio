@@ -1,9 +1,9 @@
 import sys
 from PySide6.QtGui import QPixmap
 from PySide6.QtCore import QSize, Qt
-from datetime import datetime, timedelta 
+from datetime import datetime, timedelta, date
 from collections import deque
-from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QCheckBox, QPushButton, QVBoxLayout, QLabel, QDialog, QWidget, QComboBox
+from PySide6.QtWidgets import QApplication,QFrame, QMainWindow, QLineEdit, QCheckBox, QPushButton, QVBoxLayout, QLabel, QDialog, QWidget, QComboBox
 from paciente import Paciente
 
 class Fila(QMainWindow):
@@ -11,12 +11,24 @@ class Fila(QMainWindow):
         super().__init__()
         self.setWindowTitle('Gerenciamento de Fila - Cadastro')
         self.setFixedSize(500,650)
-
-        self.central_widget = QWidget() # Para centralizar
-        self.setCentralWidget(self.central_widget)
         
         self.layout = QVBoxLayout()
         
+        #====================================================#
+        #================= img cadastro =====================#
+        self.central_widget = QWidget() # Para centralizar
+        self.setCentralWidget(self.central_widget)
+
+        self.lbl_img = QLabel(self)
+        self.lbl_img.setAlignment(Qt.AlignCenter)
+
+        pixmap = QPixmap("img_cadastro.png")    
+        escala = pixmap.scaled(100, 80)
+        
+        self.lbl_img.setPixmap(escala)
+        self.layout.addWidget(self.lbl_img)
+        #=====================================================
+        # Titulo  
         self.lbl_Titulo = QLabel('Cadastramento de Dados',self)
         self.layout.addWidget(self.lbl_Titulo)
         
@@ -43,15 +55,15 @@ class Fila(QMainWindow):
         self.layout.addWidget(self.lbl_sexo)
         
         # ComboBox sexo 
-        self.cb = QComboBox(self)
-        self.cb.addItems(['Masculino','Feminino','Outros'])
-        self.layout.addWidget(self.cb)
+        self.cb_sexo = QComboBox(self)
+        self.cb_sexo.addItems(['Masculino','Feminino','Outros'])
+        self.layout.addWidget(self.cb_sexo)
         
-        self.cb.currentIndexChanged.connect(self.mudanca_indice)
-        self.cb.currentTextChanged.connect(self.mudanca_texto)
+        self.cb_sexo.currentIndexChanged.connect(self.mudanca_indice)
+        self.cb_sexo.currentTextChanged.connect(self.mudanca_texto)
         
-        self.cb.setEditable(True) # Permite que o conteudo editavel
-        self.cb.setMaxCount(20) # Limite maximo do conteudo
+        self.cb_sexo.setEditable(True) # Permite que o conteudo editavel
+        self.cb_sexo.setMaxCount(20) # Limite maximo do conteudo
         
 #===================================================================================
         
@@ -59,49 +71,68 @@ class Fila(QMainWindow):
         self.lbl_dt_nasc = QLabel('Data de nascimento',self)
         self.layout.addWidget(self.lbl_dt_nasc)
         self.line_edit_dt_nasc = QLineEdit(self)
-        self.layout.addWidget(self.line_edit_dt_nasc)   
+        self.layout.addWidget(self.line_edit_dt_nasc) 
+          
         
         # Informar pessoa pcd
         self.lbl_pcd = QLabel('Pessoa com deficiência (PCD) ?')
         self.layout.addWidget(self.lbl_pcd)
         
-        # CheckBox Sim e Não
+        # CheckBox Sim 
         self.ck_sim = QCheckBox('Sim',self)
-        self.ck_nao = QCheckBox('Não',self)
         self.layout.addWidget(self.ck_sim)
-        self.layout.addWidget(self.ck_nao)
-        
-        self.ck_sim.stateChanged.connect(self.ck_sim_nao)
-        self.ck_nao.stateChanged.connect(self.ck_sim_nao)  
+        self.ck_sim.stateChanged.connect(self.ck_sim_)
         
          # Button de Cadastro
         self.btn_cadastrar = QPushButton('Cadastrar',self)
         self.layout.addWidget(self.btn_cadastrar)
-        self.btn_cadastrar.clicked.connect(self.caminho_janela_paciente)
+        
         
         self.central_widget.setLayout(self.layout)
+        
+        self.lista_paciente = [] 
          
-         
+    
+    # ===============================================     
     def mudanca_indice(self, i):
         print(i)
         
+        
+    # ===============================================
     def mudanca_texto(self, t):
         print(t)        
-                    
-    def ck_sim_nao(self):
-        if self.ck_sim.isChecked() and self.ck_nao.isChecked():
+             
+    
+    # ===============================================
+    def ck_sim_(self):
+        if self.ck_sim.isChecked():
             if self.sender() == self.ck_sim:
-                self.ck_nao.setChecked(False)
+                self.ck_sim.setChecked(True)
             else:
                 self.ck_sim.setChecked(False)
                 
-    def caminho_janela_paciente(self):
-        nome_completo = str(self.line_edite_nome_completo.text()) if self.line_edite_nome_completo.text() else 'sem informação'
-        num_telefone = str(self.line_edit_num_telefone.text()) if self.line_edit_num_telefone.text() else 'sem informação'
-        email = str(self.line_edit_email.text()) if self.line_edit_email.text() else 'sem informação'
-        #sexo = str()      
-        #idade = str(self.line_edit_dt_nasc.text()) if self.line_edit_dt_nasc else 'sem informação'        
-        self.caminho_janela_paciente = Paciente(nome_completo,num_telefone,email)
+    
+    # ===============================================
+    def calcular_idade(self):
+        today = date.today()
+                
+                
+    # ===============================================
+    def cadastrar(self):
+        nome = self.line_edite_nome_completo.text()
+        fone = self.line_edit_num_telefone.text()
+        email = self.line_edit_email.text()
+        sexo = self.cb_sexo.isChecked()
+        pcd = self.ck_sim.isChecked()
+        
+        paciente = Paciente(nome,fone,email,sexo,pcd)
+        self.lista_paciente.append(paciente)
+        
+        self.line_edite_nome_completo.clear()
+        self.line_edit_num_telefone.clear()
+        self.line_edit_email.clear()   
+        self.cb_sexo.setChecked(False)
+        self.ck_sim.setChecked(False)
         
         
         
