@@ -40,33 +40,33 @@ class Funct(QWidget):
         self.verticalLayout.addWidget(self.lbl_funtercerizado)
 
         self.lbl_nomet = QLabel(self.f_fun_terce)
-        self.lbl_nomet.setObjectName(u"lbl_nomep")
+        self.lbl_nomet.setObjectName(u"lbl_nomet")
 
         self.verticalLayout.addWidget(self.lbl_nomet)
 
         self.input_nomet = QLineEdit(self.f_fun_terce)
-        self.input_nomet.setObjectName(u"input_nomep")
+        self.input_nomet.setObjectName(u"input_nomet")
 
 
         self.verticalLayout.addWidget(self.input_nomet)
 
         self.lbl_hrstt = QLabel(self.f_fun_terce)
-        self.lbl_hrstt.setObjectName(u"lbl_hrstp")
+        self.lbl_hrstt.setObjectName(u"lbl_hrstt")
 
         self.verticalLayout.addWidget(self.lbl_hrstt)
 
         self.input_hrstt = QLineEdit(self.f_fun_terce)
-        self.input_hrstt.setObjectName(u"input_hrstp")
+        self.input_hrstt.setObjectName(u"input_hrstt")
 
         self.verticalLayout.addWidget(self.input_hrstt)
 
         self.lbl_valorhrst = QLabel(self.f_fun_terce)
-        self.lbl_valorhrst.setObjectName(u"lbl_valorhrsp")
+        self.lbl_valorhrst.setObjectName(u"lbl_valorhrst")
 
         self.verticalLayout.addWidget(self.lbl_valorhrst)
 
         self.input_valorhrst = QLineEdit(self.f_fun_terce)
-        self.input_valorhrst.setObjectName(u"input_valorhrsp")
+        self.input_valorhrst.setObjectName(u"input_valorhrst")
 
         self.verticalLayout.addWidget(self.input_valorhrst)
         
@@ -89,7 +89,7 @@ class Funct(QWidget):
         self.verticalLayout_2.addWidget(self.f_fun_terce)
 
         self.f_dadost = QFrame(self.f_principal)
-        self.f_dadost.setObjectName(u"f_dadosp")
+        self.f_dadost.setObjectName(u"f_dadost")
         self.f_dadost.setFrameShape(QFrame.StyledPanel)
         self.f_dadost.setFrameShadow(QFrame.Raised)
 

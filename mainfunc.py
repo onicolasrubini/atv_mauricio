@@ -11,7 +11,7 @@ from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
     QVBoxLayout, QWidget)
 import mainfunc
 from fun_teladados import *
-from func_tercerizado import *
+from func_poo import *
 # while True:
 listaf=[]
 class MainWindow(QMainWindow):   

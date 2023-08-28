@@ -1,5 +1,3 @@
-
-
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
@@ -55,6 +53,8 @@ class Ui_MainWindow(object):
 
         QMetaObject.connectSlotsByName(MainWindow)
         self.btn_cadastrofp.clicked.connect(self.funcproprio)
+        self.btn_cadastroft.clicked.connect(self.functerce)
+
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
@@ -62,13 +62,16 @@ class Ui_MainWindow(object):
         self.btn_cadastrofp.setText(QCoreApplication.translate("MainWindow", u"Cadastro funcion\u00e1rio pr\u00f3prio", None))
         self.btn_cadastroft.setText(QCoreApplication.translate("MainWindow", u"Cadastro funcion\u00e1rio tercerizado", None))
 
+
     def funcproprio(self):
         self.cadastrop = Funcp()
         self.cadastrop.show()
         
+        
     def functerce(self):
         self.cadastrot=Funct()
         self.cadastrot.show()
+        
         
 if __name__=='__main__':
     import sys
