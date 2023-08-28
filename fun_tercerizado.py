@@ -1,23 +1,28 @@
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
+    QSize, QTime, QUrl, Qt, QStringListModel)
 from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QLineEdit,
     QMainWindow, QPushButton, QSizePolicy, QVBoxLayout,
-    QWidget,QListWidget,QMessageBox)
+    QWidget,QListWidget,QMessageBox, QListView)
 import fun_tercerizado
 
-listat=[]
-class Funct(QWidget):
+class Lista:
     def __init__(self,nomeTercerizado,h_trabalhadasTercerizado,valor_porH_ter,despesa_add):
-        super().__init__()
+
         self.nomeTercerizado = nomeTercerizado
         self.h_trabalhadasTercerizado = h_trabalhadasTercerizado
         self.valor_porH_ter = valor_porH_ter
         self.despesa_add = despesa_add
+        
+        
+class Funct(QWidget):
+    def __init__(self):
+        super().__init__()
+        
         self.centralwidget = QWidget()
         self.centralwidget.setObjectName(u"centralwidget")
         self.f_principal = QFrame(self.centralwidget)
@@ -104,7 +109,7 @@ class Funct(QWidget):
         # self.btn_mdados.setGeometry(20,500,100,30)
 
 
-        self.btn_rgstro.clicked.connect(self.limpar_dados)
+        self.btn_rgstro.clicked.connect(self.registrar)
         # self.btn_mdados.clicked.connect(self.mostrardados)
         
         self.result_label=QLabel(self.f_principal)
@@ -115,6 +120,9 @@ class Funct(QWidget):
 
         self.listat=[]
         
+        self.employee_model = QStringListModel()
+        self.employee_view = QListView()
+        self.employee_view.setModel(self.employee_model)
    
         self.lbl_funtercerizado.setText(QCoreApplication.translate("MainWindow", u"Funcion\u00e1rio Tercerizado", None))
         self.lbl_nomet.setText(QCoreApplication.translate("MainWindow", u"Nome", None))
@@ -126,9 +134,8 @@ class Funct(QWidget):
         self.input_despesa.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Digite sua despesa", None))
         self.btn_rgstro.setText(QCoreApplication.translate("MainWindow", u"Registra-se", None))
         
-    
             
-    def limpar_dados(self):
+    '''def limpar_dados(self):
         nome = self.input_nomet.text()
         listat.append(nome)
         
@@ -147,43 +154,18 @@ class Funct(QWidget):
         valor_hora = self.input_valorhrst.text()
         despesa=self.input_despesa.text()
         funcionario=Funct(nome,horas_total,valor_hora,despesa)
-        self.listat.append(funcionario)
+        self.listat.append(funcionario)'''
         
 
-            
-        QMessageBox.information(self, "Sucesso", "Funcionário cadastrado com sucesso!")
-
-    def mostrardados(self, event):
-        if self.listat:
-            mensagem = "Lista de funcionários:\n"
-            for funcionario in self.listat:
-                pagamento_original = float(funcionario.horas_total) * float(funcionario.valor_hora) 
-                despesa_inicial = 0.0
-
-                if funcionario.terceirizado:
-                    despesa= self.input_despesa.text()
-                    if despesa:
-                        despesa_inicial = float(despesa) * 1.1
-                        pagamento_final = pagamento_original + despesa_inicial
-                        mensagem += (
-                            f"Nome: {funcionario.nome}, "
-                            f"Pagamento Original: {pagamento_original}, "
-                            f"Despesa Inicial: {despesa_inicial}, "
-                            f"Pagamento Final: {pagamento_final}\n"
-                        )
-                    else:
-                        pagamento_final = pagamento_original
-                        mensagem += (
-                            f"Nome: {funcionario.nome}, "
-                            f"Pagamento Original: {pagamento_original}, "
-                            f"Pagamento Final: {pagamento_final}\n"
-                        )
-                else:
-                    pagamento_final = pagamento_original
-                    mensagem += (
-                        f"Nome: {funcionario.nome}, "
-                        f"Pagamento Original: {pagamento_original}, "
-                        f"Pagamento Final: {pagamento_final}\n"
-                    )
-                    
-        QMessageBox.information(self, "Funcionários", mensagem) 
+    def registrar(self):
+        nome_tercerizado = self.input_nomet.text()
+        
+        if nome_tercerizado:
+            employee = Lista(nome_tercerizado)
+            self.listat.append(employee)
+            self.update_employee_view()
+            self.input_nomet.clear()
+        
+    def update_employee_view(self):
+        employee_nomes = [f"{employee.nome} " for employee in self.listat]
+        self.employee_model.setStringList(employee_nomes)
