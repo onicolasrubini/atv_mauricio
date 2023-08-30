@@ -9,7 +9,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import *
 import cadastroproduto
+from produtos import *
 
+listac=[]
 class Ui_Cadastro(QWidget):
     def __init__(self):
         super().__init__()
@@ -70,6 +72,43 @@ class Ui_Cadastro(QWidget):
 
         self.setLayout(self.verticalLayout_2)
         
+        self.btn_enviar=QPushButton(self.f_principal)
+        self.btn_enviar.setGeometry(10,200,90,30)
+        
+        self.verticalLayout.addWidget(self.btn_enviar)
+        
+        self.btn_enviar.clicked.connect(self.button_clicked)
+        self.btn_enviar.clicked.connect(self.limpar_dados)
+        
+
+        
+        
+    def limpar_dados(self):
+        nome = self.input_nome.text()
+        listac.append(nome)
+        
+        self.input_nome.setText("")
+        
+        self.input_precouni.setText("")
+        
+        self.input_qntdestq.setText("")
+        
+        
+    def button_clicked(self, s):
+        
+        dlg = QMessageBox(self)
+        dlg.setText("Produto cadastrado com sucesso")
+        btn_enviar = dlg.exec_()
+
+        if btn_enviar == QMessageBox.Ok:
+            print("OK!")
+            
+        
+            
+            
+            
+        
+        
         self.lbl_cadastrop.setText(QCoreApplication.translate("Cadastro", u"Cadastro do Produto", None))
         self.lbl_nome.setText(QCoreApplication.translate("Cadastro", u"Nome", None))
         self.input_nome.setPlaceholderText(QCoreApplication.translate("Cadastro", u"Digite o nome do produto", None))
@@ -77,6 +116,7 @@ class Ui_Cadastro(QWidget):
         self.input_precouni.setPlaceholderText(QCoreApplication.translate("Cadastro", u"Digite o pre\u00e7o unit\u00e1rio", None))
         self.lbl_qntdestq.setText(QCoreApplication.translate("Cadastro", u"Quantidade de estoque", None))
         self.input_qntdestq.setPlaceholderText(QCoreApplication.translate("Cadastro", u"Digite a quantidade de estoque", None))
+        self.btn_enviar.setText(QCoreApplication.translate("Cadastro", u"Enviar", None))
 
 
 
