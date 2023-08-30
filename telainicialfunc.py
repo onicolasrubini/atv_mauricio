@@ -44,8 +44,6 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_2.addWidget(self.btn_cadastroft)
         
-
-
         self.verticalLayout.addWidget(self.f_principal)
 
         MainWindow.setCentralWidget(self.centralwidget)
@@ -55,7 +53,6 @@ class Ui_MainWindow(object):
         QMetaObject.connectSlotsByName(MainWindow)
         self.btn_cadastrofp.clicked.connect(self.funcproprio)
         self.btn_cadastroft.clicked.connect(self.functerce)
-
 
 
     def retranslateUi(self, MainWindow):
@@ -75,19 +72,19 @@ class Ui_MainWindow(object):
         h_trabalhadasTercerizado=str()
         valor_porH_ter=float()
         despesa_add=float()
-        self.cadastrot=Funct(nomeTercerizado,h_trabalhadasTercerizado,valor_porH_ter,despesa_add)
-        self.cadastrot.show()
         
+        self.cadastro_ter = Funct()
+        self.cadastro_ter.show()
         
-
-
+        self.cadastro_lista = Lista(nomeTercerizado,h_trabalhadasTercerizado,valor_porH_ter,despesa_add)
+        self.cadastro_lista()
         
         
 if __name__=='__main__':
     import sys
     app = QApplication(sys.argv)
-    w=QMainWindow()
+    ui=QMainWindow()
     janela=Ui_MainWindow()
-    janela.setupUi(w)
-    w.show()
+    janela.setupUi(ui)
+    ui.show()
     app.exec()
