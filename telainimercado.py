@@ -8,7 +8,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QMainWindow,
-    QPushButton, QSizePolicy, QVBoxLayout, QWidget)
+    QPushButton, QSizePolicy, QVBoxLayout, QWidget,QMessageBox)
 import telainimercado
 from cadastroproduto import *
 from produtos import *
@@ -50,7 +50,7 @@ class Ui_MainWindow(object):
         self.btn_cadastrarp.setObjectName(u"btn_cadastrarp")
 
         self.verticalLayout.addWidget(self.btn_cadastrarp)
-
+        
 
         self.verticalLayout_2.addWidget(self.f_principal)
 
@@ -59,6 +59,8 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         QMetaObject.connectSlotsByName(MainWindow)
+        
+        
 
         self.btn_cadastrarp.clicked.connect(self.cadastro_produto)
         self.btn_estoque.clicked.connect(self.estq)
@@ -74,6 +76,13 @@ class Ui_MainWindow(object):
     def cadastro_produto(self):
         self.cadastro = Ui_Cadastro()
         self.cadastro.show()
+        
+        
+    
+    
+
+            
+    
 
 if __name__=='__main__':
     import sys
