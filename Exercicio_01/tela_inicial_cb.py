@@ -1,7 +1,6 @@
 import sys
-from PySide6.QtGui import QPixmap
-from PySide6.QtCore import QSize, Qt
-from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QCheckBox, QPushButton, QVBoxLayout, QLabel, QDialog, QWidget, QMessageBox
+from PySide6.QtGui import QColor
+from PySide6.QtWidgets import QMainWindow, QLineEdit, QPushButton, QVBoxLayout, QLabel, QDialog, QWidget, QMessageBox
 
 #=====================================================================================#
 class Tela_Inicial(QMainWindow):
@@ -93,6 +92,9 @@ class Tela_Inicial(QMainWindow):
         self.btn_saque.setGeometry(10,160,480,25)
         self.btn_saque.clicked.connect(self.saque)
         
+        self.lbl_result1 = QLabel(self)
+        self.lbl_result1.setGeometry(10,180,200,30)
+        
         dialog.exec()
     
     
@@ -109,6 +111,8 @@ class Tela_Inicial(QMainWindow):
             print('Seu saldo está negativo!')
         
         self.lbl_saldo_saque.setText(f'Saldo: {self.saldo}')
+        self.lbl_result = ('Saque realizado com sucesso!!')
+        print(self.lbl_result)
         self.lbl_saldo.setText(f'Saldo {self.saldo}')
         
 #=====================================================================================#

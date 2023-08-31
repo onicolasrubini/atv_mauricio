@@ -1,7 +1,6 @@
 import sys
-from PySide6.QtGui import QPixmap
-from PySide6.QtCore import QSize, Qt
-from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QCheckBox, QPushButton, QVBoxLayout, QLabel, QDialog, QWidget, QFrame
+from PySide6.QtGui import QIntValidator, QFont
+from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QCheckBox, QPushButton, QVBoxLayout, QLabel, QDialog, QWidget
 from tela_inicial_cb import Tela_Inicial
 
 class Cadastro(QMainWindow):
@@ -22,16 +21,23 @@ class Cadastro(QMainWindow):
         
         self.lbl_Titulo = QLabel('Conta Bancária',self)
         self.layout.addWidget(self.lbl_Titulo)
+        self.font = QFont()
+        self.font.setPointSize(25)
+        self.font.setBold(True)
+        self.lbl_Titulo.setFont(self.font)
         
         self.lbl_Num_Conta = QLabel('Número da conta',self)
         self.layout.addWidget(self.lbl_Num_Conta)
         self.line_Num_Conta = QLineEdit(self)
         self.layout.addWidget(self.line_Num_Conta)
+        self.line_Num_Conta.setValidator(QIntValidator())
+        self.line_Num_Conta.setPlaceholderText('Digite seu número da conta')
        
         self.lbl_Nome_Titular = QLabel('Nome do Titular',self)
         self.layout.addWidget(self.lbl_Nome_Titular)
         self.line_Nome_Titular = QLineEdit(self)
         self.layout.addWidget(self.line_Nome_Titular)
+        self.line_Nome_Titular.setPlaceholderText('Digite seu nome')
         
         self.lbl_Depositar = QLabel('Deseja fazer seu primeiro deposito?',self)
         self.layout.addWidget(self.lbl_Depositar)
@@ -49,6 +55,8 @@ class Cadastro(QMainWindow):
         self.layout.addWidget(self.lbl_Info_Quant_Dep)
         self.line_Info_Quant_Dep = QLineEdit(self)
         self.layout.addWidget(self.line_Info_Quant_Dep)
+        self.line_Info_Quant_Dep.setValidator(QIntValidator())
+        self.line_Info_Quant_Dep.setPlaceholderText('Digite o valor do deposito inicial')
         
         self.button_Entrar = QPushButton('Entrar',self)
         self.layout.addWidget(self.button_Entrar)
