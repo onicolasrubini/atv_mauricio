@@ -10,9 +10,11 @@ from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QLineEdit,
     QWidget,QListWidget,QMessageBox, QListView)
 import fun_tercerizado
 
+# classe das informações dos funcionarios
 class Lista:
-    def __init__(self,nomeTercerizado,h_trabalhadasTercerizado,valor_porH_ter,despesa_add):
+    def __init__(self,pagamento,nomeTercerizado,h_trabalhadasTercerizado,valor_porH_ter,despesa_add):
         
+        self.pagamento = pagamento
         self.nomeTercerizado = nomeTercerizado
         self.h_trabalhadasTercerizado = h_trabalhadasTercerizado
         self.valor_porH_ter = valor_porH_ter
@@ -23,6 +25,7 @@ class Funct(QWidget):
     def __init__(self):
         super().__init__()
         
+        self.lista_ter=[]
         self.layout = QVBoxLayout()
         self.centralwidget = QWidget(self)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -105,13 +108,9 @@ class Funct(QWidget):
         self.btn_rgstro.clicked.connect(self.registrar)
         self.btn_rgstro.clicked.connect(self.limpar_dados)
         
-        self.result_label=QLabel(self.f_principal)
-        self.result_label.setGeometry(100,10,80,30)
-        
         self.setLayout(self.verticalLayout_2)
-
-        self.lista_ter=[]
         
+        # tela para printar nome e salario
         self.modelo_de_func = QStringListModel(self.f_fun_terce)
         self.func_view = QListView()
         self.func_view.setModel(self.modelo_de_func)
@@ -127,38 +126,32 @@ class Funct(QWidget):
         self.input_despesa.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Digite sua despesa", None))
         self.btn_rgstro.setText(QCoreApplication.translate("MainWindow", u"Registra-se", None))
         
-            
+    # função para limpar os dados colocados
     def limpar_dados(self):
         self.input_nomet.setText("")
         self.input_hrstt.setText("")
         self.input_valorhrst.setText("")
         self.input_despesa.setText("")
     
-    
-    def registrar(self):        
-        nome_tercerizado = self.input_nomet.text()
-        h_trabalhadas = self.input_hrstt.text()
-        valor_porH = self.input_valorhrst.text()
-        despesa = self.input_despesa.text()
+    # função para printar a lista dos nomes e salario
+    def registrar(self):
+        nomeTercerizado = self.input_nomet.text()
+        h_trabalhadasTercerizado = float(self.input_hrstt.text())
+        valor_porH_ter = float(self.input_valorhrst.text())
+        despesa_add = float(self.input_despesa.text())
         
-        if nome_tercerizado:
-            funcionario = Lista(nome_tercerizado,h_trabalhadas,valor_porH,despesa)
+        adicional = 1.1 * despesa_add
+        pagamento = h_trabalhadasTercerizado * valor_porH_ter + adicional
+        print(pagamento)
+    
+        
+        if nomeTercerizado:
+            funcionario = Lista(pagamento,nomeTercerizado,h_trabalhadasTercerizado,valor_porH_ter,despesa_add)
             self.lista_ter.append(funcionario)
             self.update_funcionario_tercerizado()
             self.input_nomet.clear()
         
         
     def update_funcionario_tercerizado(self):
-        nome_func = [f"{funcionario.nome}" for funcionario in self.lista_ter]
+        nome_func = [f"{funcionario.nomeTercerizado} - {funcionario.pagamento}" for funcionario in self.lista_ter]
         self.modelo_de_func.setStringList(nome_func)
-        
-        
-def main():
-    import sys
-    app = QApplication(sys.argv)
-    window = Funct()
-    window.show()
-    sys.exit(app.exec_())
-    
-if __name__ == "__main__":
-    main()

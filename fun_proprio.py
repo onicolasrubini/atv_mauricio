@@ -1,21 +1,30 @@
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
+    QSize, QTime, QUrl, Qt, QStringListModel)
 from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QLineEdit,
     QMainWindow, QPushButton, QSizePolicy, QVBoxLayout,
-    QWidget,QListWidget)
+    QWidget,QListWidget, QListView)
 import fun_proprio
 
-listav=[]
-listah=[]
-listap=[]
+# classe das informações dos funcionarios
+class ListaP:
+    def __init__(self,pagamento,nome,h_trabalhadas,valor_porH):
+        
+        self.pagamento = pagamento
+        self.nome = nome
+        self.h_trabalhadas = h_trabalhadas
+        self.valor_porH = valor_porH
+
+
 class Funcp(QWidget):
     def __init__(self):
         super().__init__()
+        self.lista_propria=[]
+        self.layout = QVBoxLayout()
         self.centralwidget = QWidget()
         self.centralwidget.setObjectName(u"centralwidget")
         self.f_principal = QFrame(self.centralwidget)
@@ -47,7 +56,6 @@ class Funcp(QWidget):
         self.input_nomep = QLineEdit(self.f_fun_proprio)
         self.input_nomep.setObjectName(u"input_nomep")
 
-
         self.verticalLayout.addWidget(self.input_nomep)
 
         self.lbl_hrstp = QLabel(self.f_fun_proprio)
@@ -75,7 +83,6 @@ class Funcp(QWidget):
 
         self.verticalLayout.addWidget(self.btn_rgstro)
 
-
         self.verticalLayout_2.addWidget(self.f_fun_proprio)
 
         self.f_dadosp = QFrame(self.f_principal)
@@ -85,20 +92,16 @@ class Funcp(QWidget):
 
         self.verticalLayout_2.addWidget(self.f_dadosp)
 
-
+        self.btn_rgstro.clicked.connect(self.registrar)
+        self.btn_rgstro.clicked.connect(self.limpar_dados_propria)  
         
-        self.btn_mdados = QPushButton("Mostrar dados",self)
-        self.btn_mdados.setGeometry(20,500,100,30)
-
-
-        self.btn_rgstro.clicked.connect(self.limpar_dados)
-        self.btn_mdados.clicked.connect(self.mostrardados)
-        self.result_label=QLabel(self.f_principal)
-        self.result_label.setGeometry(100,10,80,30)
+        self.setLayout(self.verticalLayout_2)        
         
-       
-        self.setLayout(self.verticalLayout_2)
-        
+        # tela para printar nome e salario
+        self.modelo_de_func = QStringListModel(self.f_fun_proprio)
+        self.func_view = QListView()
+        self.func_view.setModel(self.modelo_de_func)
+        self.verticalLayout.addWidget(self.func_view)
    
         self.lbl_funproprio.setText(QCoreApplication.translate("MainWindow", u"Funcion\u00e1rio Pr\u00f3prio", None))
         self.lbl_nomep.setText(QCoreApplication.translate("MainWindow", u"Nome", None))
@@ -108,30 +111,30 @@ class Funcp(QWidget):
         self.lbl_valorhrsp.setText(QCoreApplication.translate("MainWindow", u"Valor horas", None))
         self.input_valorhrsp.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Digite valor por horas", None))
         self.btn_rgstro.setText(QCoreApplication.translate("MainWindow", u"Registra-se", None))
-        
     
-            
-    def limpar_dados(self):
-        nome = self.input_nomep.text()
-        listap.append(nome)
-        
+    # função para limpar os dados colocados
+    def limpar_dados_propria(self):        
         self.input_nomep.setText("")
-        
         self.input_hrstp.setText("")
+        self.input_valorhrsp.setText("")        
         
-        self.input_valorhrsp.setText("")
+    # função para printar a lista dos nomes e salario
+    def registrar(self):
+        nome = self.input_nomep.text()
+        h_trabalhadas = float(self.input_hrstp.text())
+        valor_porH = float(self.input_valorhrsp.text())
         
-    def mostrardados(self):
-         for i in listap:
-            self.result_label.setText(i)
-
-            
-
-            
-            
+        pagamento = h_trabalhadas * valor_porH
+        print(pagamento)
     
-   
+        
+        if nome:
+            funcionario = ListaP(pagamento,nome,h_trabalhadas,valor_porH)
+            self.lista_propria.append(funcionario)
+            self.update_funcionario_proprio()
+            self.input_nomep.clear()
         
         
-          
-
+    def update_funcionario_proprio(self):
+        nome_func = [f"{funcionario.nome} - {funcionario.pagamento}" for funcionario in self.lista_propria]
+        self.modelo_de_func.setStringList(nome_func)

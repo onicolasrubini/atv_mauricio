@@ -63,28 +63,25 @@ class Ui_MainWindow(object):
 
 
     def funcproprio(self):
+        pagamento=float()
+        nome=str()
+        h_trabalhadas=float()
+        valor_porH=float()
+        
         self.cadastrop = Funcp()
         self.cadastrop.show()
         
+        self.cadastro_listaP = ListaP(pagamento,nome,h_trabalhadas,valor_porH)
+        
         
     def functerce(self):
+        pagamento=float()
         nomeTercerizado=str()
-        h_trabalhadasTercerizado=str()
+        h_trabalhadasTercerizado=float()
         valor_porH_ter=float()
         despesa_add=float()
         
         self.cadastro_ter = Funct()
         self.cadastro_ter.show()
         
-        self.cadastro_lista = Lista(nomeTercerizado,h_trabalhadasTercerizado,valor_porH_ter,despesa_add)
-        self.cadastro_lista()
-        
-        
-if __name__=='__main__':
-    import sys
-    app = QApplication(sys.argv)
-    ui=QMainWindow()
-    janela=Ui_MainWindow()
-    janela.setupUi(ui)
-    ui.show()
-    app.exec()
+        self.cadastro_lista = Lista(pagamento,nomeTercerizado,h_trabalhadasTercerizado,valor_porH_ter,despesa_add)
