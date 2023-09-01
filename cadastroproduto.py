@@ -11,7 +11,15 @@ from PySide6.QtWidgets import *
 import cadastroproduto
 from produtos import *
 
-listac=[]
+lista_prod=[]
+lista_qntd=[]
+lista_estoque=[]
+
+class Lista:
+    def __init__(self,qntd_de_prod,nome_prod):
+        self.qntd_de_prod = qntd_de_prod
+        self.nome_prod = nome_prod
+        
 class Ui_Cadastro(QWidget):
     def __init__(self):
         super().__init__()
@@ -78,14 +86,30 @@ class Ui_Cadastro(QWidget):
         self.verticalLayout.addWidget(self.btn_enviar)
         
         self.btn_enviar.clicked.connect(self.button_clicked)
+        self.btn_enviar.clicked.connect(self.lista)
         self.btn_enviar.clicked.connect(self.limpar_dados)
+      
+        self.lbl_cadastrop.setText(QCoreApplication.translate("Cadastro", u"Cadastro do Produto", None))
+        self.lbl_nome.setText(QCoreApplication.translate("Cadastro", u"Nome", None))
+        self.input_nome.setPlaceholderText(QCoreApplication.translate("Cadastro", u"Digite o nome do produto", None))
+        self.lbl_precouni.setText(QCoreApplication.translate("Cadastro", u"Pre\u00e7o Unit\u00e1rio", None))
+        self.input_precouni.setPlaceholderText(QCoreApplication.translate("Cadastro", u"Digite o pre\u00e7o unit\u00e1rio", None))
+        self.lbl_qntdestq.setText(QCoreApplication.translate("Cadastro", u"Quantidade de estoque", None))
+        self.input_qntdestq.setPlaceholderText(QCoreApplication.translate("Cadastro", u"Digite a quantidade de estoque", None))
+        self.btn_enviar.setText(QCoreApplication.translate("Cadastro", u"Enviar", None))
         
-
         
+    def lista(self):
+        qntd_de_prod = int(self.input_qntdestq.text())
+        nome_prod=self.input_nome.text()
+        
+        estoque = Lista(nome_prod,qntd_de_prod)
+        
+        lista_prod.append(nome_prod)
+        lista_qntd.append(qntd_de_prod)
+        lista_estoque.append(estoque)
         
     def limpar_dados(self):
-        nome = self.input_nome.text()
-        listac.append(nome)
         
         self.input_nome.setText("")
         
@@ -101,25 +125,4 @@ class Ui_Cadastro(QWidget):
         btn_enviar = dlg.exec_()
 
         if btn_enviar == QMessageBox.Ok:
-            print("OK!")
-            
-        
-            
-            
-            
-        
-        
-        self.lbl_cadastrop.setText(QCoreApplication.translate("Cadastro", u"Cadastro do Produto", None))
-        self.lbl_nome.setText(QCoreApplication.translate("Cadastro", u"Nome", None))
-        self.input_nome.setPlaceholderText(QCoreApplication.translate("Cadastro", u"Digite o nome do produto", None))
-        self.lbl_precouni.setText(QCoreApplication.translate("Cadastro", u"Pre\u00e7o Unit\u00e1rio", None))
-        self.input_precouni.setPlaceholderText(QCoreApplication.translate("Cadastro", u"Digite o pre\u00e7o unit\u00e1rio", None))
-        self.lbl_qntdestq.setText(QCoreApplication.translate("Cadastro", u"Quantidade de estoque", None))
-        self.input_qntdestq.setPlaceholderText(QCoreApplication.translate("Cadastro", u"Digite a quantidade de estoque", None))
-        self.btn_enviar.setText(QCoreApplication.translate("Cadastro", u"Enviar", None))
-
-
-
-    def adicionaritem(self):
-        self.produto=Produtos()
-        self.cb_produtos.addItem
+            print("OK!")   

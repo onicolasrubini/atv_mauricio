@@ -52,7 +52,6 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.btn_cadastrarp)
         
-
         self.verticalLayout_2.addWidget(self.f_principal)
 
         MainWindow.setCentralWidget(self.centralwidget)
@@ -60,9 +59,6 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         QMetaObject.connectSlotsByName(MainWindow)
-        
-        
-        
         
         self.btn_comprar.clicked.connect(self.vender)
         self.btn_cadastrarp.clicked.connect(self.cadastro_produto)
@@ -74,25 +70,24 @@ class Ui_MainWindow(object):
         self.btn_comprar.setText(QCoreApplication.translate("MainWindow", u"Comprar", None))
         self.btn_estoque.setText(QCoreApplication.translate("MainWindow", u"Ver Estoque", None))
         self.btn_cadastrarp.setText(QCoreApplication.translate("MainWindow", u"Cadastrar Produto", None))
+        
     def estq(self):
-        self.estoque=Produtos()
+        self.estoque=Prod()
         self.estoque.show()
+        
     def cadastro_produto(self):
+        qntd_de_prod = int()
+        nome_prod = str()
+        
         self.cadastro = Ui_Cadastro()
         self.cadastro.show()
+        
+        self.cadastro_list = Lista(qntd_de_prod,nome_prod)
+        
     def vender(self):
         self.vendproduto=Vendas()
         self.vendproduto.show()
-        
-        
-    def adicionaritem(self):
-        self.produto=Produtos()
-        self..addItems
-       
-    
 
-            
-    
 
 if __name__=='__main__':
     import sys
