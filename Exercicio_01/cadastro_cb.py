@@ -1,6 +1,5 @@
-import sys
-from PySide6.QtGui import QIntValidator, QFont
-from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QCheckBox, QPushButton, QVBoxLayout, QLabel, QDialog, QWidget
+from PySide6.QtGui import QIntValidator, QFont, QColor
+from PySide6.QtWidgets import QMainWindow, QLineEdit, QCheckBox, QPushButton, QVBoxLayout, QLabel, QWidget
 from tela_inicial_cb import Tela_Inicial
 
 class Cadastro(QMainWindow):
@@ -17,7 +16,10 @@ class Cadastro(QMainWindow):
         #self.QFrame.setFrameShape(QFrame.StyledPanel)
         #self.QFrame.setGeometry(10,200,400,400)
         
-        self.layout = QVBoxLayout()       
+        self.layout = QVBoxLayout()   
+        
+        self.BK_Color = QColor(156, 156, 156)
+        self.setStyleSheet(f'background-color:{self.BK_Color.name()};')
         
         self.lbl_Titulo = QLabel('Conta Bancária',self)
         self.layout.addWidget(self.lbl_Titulo)

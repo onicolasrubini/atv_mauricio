@@ -1,6 +1,6 @@
 import sys
-from PySide6.QtGui import QColor
-from PySide6.QtWidgets import QMainWindow, QLineEdit, QPushButton, QVBoxLayout, QLabel, QDialog, QWidget, QMessageBox
+from PySide6.QtGui import QColor, QFont, QPixmap, Qt
+from PySide6.QtWidgets import QMainWindow, QLineEdit, QPushButton, QVBoxLayout, QLabel, QDialog, QWidget
 
 #=====================================================================================#
 class Tela_Inicial(QMainWindow):
@@ -16,7 +16,23 @@ class Tela_Inicial(QMainWindow):
         self.central_widget = QWidget()
         self.setCentralWidget(self.central_widget)
         
+        self.BK_Color = QColor(156, 156, 156)
+        self.setStyleSheet(f'background-color:{self.BK_Color.name()};')
+        
         self.layout = QVBoxLayout()
+        
+        self.central_widget = QWidget() # Para centralizar
+        self.setCentralWidget(self.central_widget)
+
+        self.lbl_img = QLabel(self)
+        self.lbl_img.setAlignment(Qt.AlignCenter)
+
+        pixmap = QPixmap("museu.png")    
+        escala = pixmap.scaled(105, 100)
+        
+        self.lbl_img.setPixmap(escala)
+        self.layout.addWidget(self.lbl_img)
+        
                 
         # Para aparecer o nome e o saldo da pessoa
         self.lbl_Nome = QLabel(f'Olá {self.nome},',self)
@@ -45,7 +61,11 @@ class Tela_Inicial(QMainWindow):
         dialog.setGeometry(200,320,500,400)
 
         self.lbl_Nota = QLabel('Area Deposito',dialog)
-        self.lbl_Nota.setGeometry(220,20,100,30)
+        self.lbl_Nota.setGeometry(190,20,250,30)
+        self.font = QFont()
+        self.font.setPointSize(18)
+        self.font.setBold(True)
+        self.lbl_Nota.setFont(self.font)
         
         self.lbl_valor_dep = QLabel('Informe o valor',dialog)
         self.lbl_valor_dep.setGeometry(10,60,200,30)
@@ -77,7 +97,11 @@ class Tela_Inicial(QMainWindow):
         dialog.setGeometry(200,320,500,400)
         
         self.lbl_Nota_saque = QLabel('Area Saque',dialog)
-        self.lbl_Nota_saque.setGeometry(220,20,100,30)
+        self.lbl_Nota_saque.setGeometry(205,20,249,30)
+        self.font = QFont()
+        self.font.setPointSize(18)
+        self.font.setBold(True)
+        self.lbl_Nota_saque.setFont(self.font)
         
         self.lbl_valor_saque = QLabel('Informe o valor do saque',dialog)
         self.lbl_valor_saque.setGeometry(10,60,200,30)
@@ -122,7 +146,11 @@ class Tela_Inicial(QMainWindow):
         dialog.setGeometry(200,320,500,400)
         
         self.lbl_Nota_conf = QLabel('Alterar Titular',dialog)
-        self.lbl_Nota_conf.setGeometry(220,20,100,30)
+        self.lbl_Nota_conf.setGeometry(190,20,250,30)
+        self.font = QFont()
+        self.font.setPointSize(18)
+        self.font.setBold(True)
+        self.lbl_Nota_conf.setFont(self.font)
         
         self.lbl_novo_nome_Titular = QLabel('Novo Titular',dialog)
         self.lbl_novo_nome_Titular.setGeometry(10,60,200,30)
