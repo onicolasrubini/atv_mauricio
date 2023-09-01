@@ -1,5 +1,5 @@
 import sys
-from PySide6.QtGui import QPixmap
+from PySide6.QtGui import QPixmap, QIntValidator, QColor
 from PySide6.QtCore import QSize, Qt
 from datetime import datetime, timedelta, date
 from collections import deque
@@ -27,6 +27,10 @@ class Fila(QMainWindow):
         
         self.lbl_img.setPixmap(escala)
         self.layout.addWidget(self.lbl_img)
+        
+        self.BK_Color = QColor(176, 196, 222) # Azul claro
+        self.setStyleSheet(f'background-color: {self.BK_Color.name()};')
+
         #=====================================================
         # Titulo  
         self.lbl_Titulo = QLabel('Cadastramento de Dados',self)
@@ -35,20 +39,24 @@ class Fila(QMainWindow):
         # Informar o nome completo para cadastro
         self.lbl_nome_completo = QLabel('Nome completo',self)
         self.layout.addWidget(self.lbl_nome_completo)
-        self.line_edite_nome_completo = QLineEdit(self)
-        self.layout.addWidget(self.line_edite_nome_completo)
+        self.line_edit_nome_completo = QLineEdit(self)
+        self.layout.addWidget(self.line_edit_nome_completo)
+        self.line_edit_nome_completo.setPlaceholderText('Digite seu nome completo')
        
         # Informar o número de telefone para contato
         self.lbl_num_telefone = QLabel('Número de telefone',self)
         self.layout.addWidget(self.lbl_num_telefone)
         self.line_edit_num_telefone = QLineEdit(self)
         self.layout.addWidget(self.line_edit_num_telefone)
+        self.line_edit_num_telefone.setValidator(QIntValidator())
+        self.line_edit_num_telefone.setPlaceholderText('Digite seu número de telefone')
         
         # Informar o email
         self.lbl_email = QLabel('Email',self)
         self.layout.addWidget(self.lbl_email)
         self.line_edit_email = QLineEdit(self)
         self.layout.addWidget(self.line_edit_email)
+        self.line_edit_email.setPlaceholderText('Digite seu email')
        
         # Informar o sexo                          
         self.lbl_sexo = QLabel('Sexo',self)
@@ -72,6 +80,7 @@ class Fila(QMainWindow):
         self.layout.addWidget(self.lbl_dt_nasc)
         self.line_edit_dt_nasc = QLineEdit(self)
         self.layout.addWidget(self.line_edit_dt_nasc) 
+        self.line_edit_dt_nasc.setPlaceholderText('00/00/0000')
           
         
         # Informar pessoa pcd
@@ -86,9 +95,12 @@ class Fila(QMainWindow):
          # Button de Cadastro
         self.btn_cadastrar = QPushButton('Cadastrar',self)
         self.layout.addWidget(self.btn_cadastrar)
+        self.btn_cadastrar.clicked.connect(self.cadastrar)
         
         
         self.central_widget.setLayout(self.layout)
+        
+        
         
         self.lista_paciente = [] 
          
@@ -119,20 +131,28 @@ class Fila(QMainWindow):
                 
     # ===============================================
     def cadastrar(self):
-        nome = self.line_edite_nome_completo.text()
+        nome = self.line_edit_nome_completo.text()
         fone = self.line_edit_num_telefone.text()
         email = self.line_edit_email.text()
-        sexo = self.cb_sexo.isChecked()
+        dt_nasc = self.line_edit_dt_nasc.text()
         pcd = self.ck_sim.isChecked()
         
-        paciente = Paciente(nome,fone,email,sexo,pcd)
+        paciente = Paciente(nome, fone, email, dt_nasc, pcd)
         self.lista_paciente.append(paciente)
         
-        self.line_edite_nome_completo.clear()
+        self.line_edit_nome_completo.clear()
         self.line_edit_num_telefone.clear()
-        self.line_edit_email.clear()   
-        self.cb_sexo.setChecked(False)
+        self.line_edit_email.clear()  
+        self.line_edit_dt_nasc.clear() 
         self.ck_sim.setChecked(False)
+        self.update_pacientes()
+        
+#===========================================================================================         
+        
+    def update_pacientes(self):
+        nome_p = [f"{paciente.nome}" for paciente in self.lista_paciente]
+        
+#===========================================================================================
         
         
         

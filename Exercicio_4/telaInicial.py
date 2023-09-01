@@ -1,12 +1,13 @@
 import sys
-from PySide6.QtGui import QPixmap
+from PySide6.QtGui import QPixmap, QColor
 from PySide6.QtCore import Qt
 from datetime import datetime, timedelta
+
 from PySide6.QtWidgets import (
     QApplication, QMainWindow, QPushButton, 
     QVBoxLayout, QLabel, QWidget, QFrame, 
-    QTableView, QTableWidget, QTableWidgetItem,
-    QDockWidget, QFormLayout, QLineEdit, QSpinBox,
+    QListView, QFormLayout, QSpinBox,
+    QTableView, QTableWidget, QTableWidgetItem
 )
 
 from cadastro import Fila
@@ -20,6 +21,8 @@ class tela_inicial(QMainWindow):
         self.central_widget = QWidget() # Para centralizar
         self.setCentralWidget(self.central_widget)
         
+        self.BK_Color = QColor(206, 218, 234) # Azul claro
+        self.setStyleSheet(f'background-color: {self.BK_Color.name()};')
         
         # para colocar a imagem 
         self.image_frame = QFrame(self)
@@ -39,6 +42,8 @@ class tela_inicial(QMainWindow):
         
         self.setLayout(layout)
         
+#=====================================================================================
+        
         pixmap = QPixmap("img_fila.jpg")    
         escala = pixmap.scaled(500, 400)
         self.lbl_img.setPixmap(escala)
@@ -46,36 +51,24 @@ class tela_inicial(QMainWindow):
         
         # Titulo 
         self.lbl_Titulo_tela_inicial = QLabel('Fila de pacientes',self)
-        self.lbl_Titulo_tela_inicial.setGeometry(215,200,100,30)   
+        self.lbl_Titulo_tela_inicial.setGeometry(215,200,100,30)
  
  
         # Botão de cadastro
         self.btn_cadastro = QPushButton('Cadastrar-se',self)
         self.btn_cadastro.setGeometry(126,600,250,30)
         self.btn_cadastro.clicked.connect(self.cadastro)
- 
- #===========================================================================================
-    def limpar_dados(self):
-        self.input_nomet.setText("")
-        self.input_hrstt.setText("")
-        self.input_valorhrst.setText("")
-        self.input_despesa.setText("")
-    
-    
-    def registrar(self):
-        nome_tercerizado = self.input_nomet.text()
+
+
+        self.paciente_view = QListView(self) # Área onde vai ficar os nomes dos pacientes cadastrados
+        self.paciente_view.setGeometry(10,240,480,300)
+     
+         
+       
+       
+       
+#=====================================================================================       
         
-        funcionario = Lista(nome_tercerizado)
-        self.lista_ter.append(funcionario)
-        self.update_funcionario_tercerizado()
-        self.input_nomet.clear()
-        
-        
-    def update_funcionario_tercerizado(self):
-        nome_func = [f"{funcionario.nome}" for funcionario in self.lista_ter]
-        self.modelo_de_func.setStringList(nome_func)
-        
- #===========================================================================================       
     # def para ir para a proxima tela
     def cadastro(self):       
         self.secondary_window = Fila()

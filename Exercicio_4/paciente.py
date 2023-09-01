@@ -1,8 +1,7 @@
 class Paciente:
-    def __init__(self,nome,fone,email,sexo,horario,pcd):
+    def __init__(self, nome, fone, email, dt_nasc, pcd):
         self.nome = nome
         self.fone = fone
         self.email = email
-        self.sexo = sexo
-        self.horario = horario
+        self.dt_nasc = dt_nasc
         self.pcd = pcd
