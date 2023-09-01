@@ -12,6 +12,7 @@ from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QMainWindow,
 import telainimercado
 from cadastroproduto import *
 from produtos import *
+from venda import *
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -36,10 +37,10 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.lbl_telainicial, 0, Qt.AlignHCenter)
 
-        self.pushButton = QPushButton(self.f_principal)
-        self.pushButton.setObjectName(u"pushButton")
+        self.btn_comprar = QPushButton(self.f_principal)
+        self.btn_comprar.setObjectName(u"btn_comprar")
 
-        self.verticalLayout.addWidget(self.pushButton)
+        self.verticalLayout.addWidget(self.btn_comprar)
 
         self.btn_estoque = QPushButton(self.f_principal)
         self.btn_estoque.setObjectName(u"btn_estoque")
@@ -61,13 +62,16 @@ class Ui_MainWindow(object):
         QMetaObject.connectSlotsByName(MainWindow)
         
         
-
+        
+        
+        self.btn_comprar.clicked.connect(self.vender)
         self.btn_cadastrarp.clicked.connect(self.cadastro_produto)
         self.btn_estoque.clicked.connect(self.estq)
+        
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.lbl_telainicial.setText(QCoreApplication.translate("MainWindow", u"Tela Inicial", None))
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Comprar", None))
+        self.btn_comprar.setText(QCoreApplication.translate("MainWindow", u"Comprar", None))
         self.btn_estoque.setText(QCoreApplication.translate("MainWindow", u"Ver Estoque", None))
         self.btn_cadastrarp.setText(QCoreApplication.translate("MainWindow", u"Cadastrar Produto", None))
     def estq(self):
@@ -76,9 +80,15 @@ class Ui_MainWindow(object):
     def cadastro_produto(self):
         self.cadastro = Ui_Cadastro()
         self.cadastro.show()
+    def vender(self):
+        self.vendproduto=Vendas()
+        self.vendproduto.show()
         
         
-    
+    def adicionaritem(self):
+        self.produto=Produtos()
+        self..addItems
+       
     
 
             

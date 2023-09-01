@@ -120,3 +120,6 @@ class Ui_Cadastro(QWidget):
 
 
 
+    def adicionaritem(self):
+        self.produto=Produtos()
+        self.cb_produtos.addItem

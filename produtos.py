@@ -1,5 +1,3 @@
-
-
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
@@ -10,7 +8,11 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QComboBox, QLabel, QMainWindow,
     QSizePolicy, QWidget,QFrame)
 import produtos
-import cadastroproduto
+from cadastroproduto import *
+
+
+    
+        
 
 class Produtos(QWidget):
     def __init__(self):
@@ -25,7 +27,7 @@ class Produtos(QWidget):
         font.setPointSize(30)
         self.lbl_estoque.setFont(font)
         self.cb_produtos = QComboBox(self)
-        self.cb_produtos.addItem("")
+        self.cb_produtos.addItem()
         self.cb_produtos.setObjectName(u"cb_produtos")
         self.cb_produtos.setGeometry(QRect(30, 90, 161, 20))
         self.f_principal=QFrame(self)
@@ -38,6 +40,7 @@ class Produtos(QWidget):
 
         self.lbl_estoque.setText(QCoreApplication.translate("MainWindow", u"Estoque", None))
         self.cb_produtos.setItemText(0, QCoreApplication.translate("MainWindow", u"Produtos", None))
+
 
 
 
