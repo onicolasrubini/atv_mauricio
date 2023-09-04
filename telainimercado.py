@@ -89,11 +89,3 @@ class Ui_MainWindow(object):
         self.vendproduto.show()
 
 
-if __name__=='__main__':
-    import sys
-    app = QApplication(sys.argv)
-    w=QMainWindow()
-    janela=Ui_MainWindow()
-    janela.setupUi(w)
-    w.show()
-    app.exec()
