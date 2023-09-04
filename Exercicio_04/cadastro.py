@@ -153,12 +153,3 @@ class Fila(QMainWindow):
         nome_p = [f"{paciente.nome}" for paciente in self.lista_paciente]
         
 #===========================================================================================
-        
-        
-        
-        
-if __name__ == "__main__":    
-    app = QApplication(sys.argv)
-    janela = Fila()
-    janela.show()
-    app.exec()
