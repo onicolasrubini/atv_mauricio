@@ -73,10 +73,3 @@ class tela_inicial(QMainWindow):
     def cadastro(self):       
         self.secondary_window = Fila()
         self.secondary_window.show()       
-        
-               
-if __name__ == "__main__":    
-    app = QApplication(sys.argv)
-    janela = tela_inicial()
-    janela.show()
-    app.exec()
